@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.es.api.entity.Bills;
+import com.es.api.entity.DigitalServices;
 import com.es.api.entity.User;
 import com.es.api.exception.BadRequestException;
 import com.es.api.repository.BillsRepository;
+import com.es.api.repository.DigitalServicesRepository;
 import com.es.api.repository.UserRepository;
 import com.es.api.request.BillRequest;
 import com.es.api.service.BillsService;
@@ -25,6 +27,9 @@ public class BillsServiceImpl implements BillsService{
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private DigitalServicesRepository digitalServiceRepo;
+	
 
 	@Override
 	public Long create(BillRequest billRequest) {
@@ -32,10 +37,18 @@ public class BillsServiceImpl implements BillsService{
 		if(optionalUser.isEmpty()) {
 				 throw new BadRequestException("User Not Found !");
 		}
+		
+		
+		Optional<DigitalServices> serviceName = digitalServiceRepo.findById(billRequest.getServiceCode());
+		
+		if(serviceName.isEmpty()) {
+			 throw new BadRequestException("Digital Service Not Found !");
+	}
+		
 		Bills billDetails = Bills.builder()
 				.id(generateBillId())
 				.employeeName(billRequest.getEmployeeName())
-				.serviceName(billRequest.getServiceName())
+				.serviceName(serviceName.get().getServiceName())
 				.dor(billRequest.getDor())
 				.amount(billRequest.getAmount())
 				.userCharges(billRequest.getUserCharges())

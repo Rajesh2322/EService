@@ -14,4 +14,9 @@ public interface BillsRepository extends JpaRepository<Bills,Long>{
 
 	List<Bills> findAllByOrderByCreatedDateDesc();
 
+
+	List<Bills> findByServiceNameInAndUserIdId(List<String> serviceNames, Long userId);
+
+	List<Bills> findByServiceNameIn(List<String> serviceNames);
+
 }

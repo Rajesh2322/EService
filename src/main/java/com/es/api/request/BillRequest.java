@@ -12,7 +12,7 @@ import lombok.Data;
 public class BillRequest {
 	
 	private String employeeName;
-	private String serviceName;
+	private Long serviceCode;
 	private Date dor;
 	private Integer amount;
 	private Integer userCharges;

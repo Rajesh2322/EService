@@ -1,5 +1,6 @@
 package com.es.api.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -29,6 +30,8 @@ public class GivenAmount {
 	@ManyToOne
     private DigitalServices serviceCode;
     private String countsJson;
+    private BigDecimal given1Total;
+    private BigDecimal given2Total;
     private Date createdDate;
     @ManyToOne
     private User createdBy;
