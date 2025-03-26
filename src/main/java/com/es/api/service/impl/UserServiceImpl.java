@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService{
 		 if(optionalUser.isPresent()) {
 			 throw new BadRequestException("User name already exists. Please try again with a different user name!");
 		}
+		 
 		 Optional<User> roleOptional = userRepo.findByRoleIgnoreCase(user.getRole());
 		 
 		 if(roleOptional.isPresent()) {
