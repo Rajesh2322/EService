@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.es.api.entity.User;
 import com.es.api.exception.BadRequestException;
 import com.es.api.request.LoginRequest;
+import com.es.api.request.ResetPasswordRequest;
 import com.es.api.request.UserRequest;
 import com.es.api.response.Response;
 import com.es.api.response.ServiceResponse;
@@ -88,6 +89,29 @@ public class UserController {
 		 ResponseCookie cookie = userService.logOut();
 		 return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
 				 .body(new ResponseEntity<>(ServiceResponse.builder().msg("You've been signed out !!").build(),HttpStatus.OK));
+	 }
+	 
+	 
+	 @PostMapping("/resetPassword")
+	 public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest) {
+	     log.info("Reset Password service - start");
+	     log.info("Received ResetPasswordRequest: {}", resetPasswordRequest);
+
+	     try {
+	         String resetResponse = userService.resetPassword(resetPasswordRequest);
+	         log.info("Password reset successful for user: {}", resetPasswordRequest.getUserName());
+
+	         return ResponseEntity.ok().body(new ResponseEntity<>(
+	                 ServiceResponse.builder().msg(resetResponse).build(), HttpStatus.OK));
+	     } catch (BadRequestException e) {
+	         log.error("Password reset failed: {}", e.getMsg());
+	         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                 .body(Response.builder().responseMsg(e.getMsg()).build());
+	     } catch (Exception e) {
+	         log.error("Unexpected error occurred during password reset.", e);
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                 .body(Response.builder().responseMsg("Unexpected error occurred.").build());
+	     }
 	 }
 
 }

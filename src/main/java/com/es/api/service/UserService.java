@@ -6,6 +6,7 @@ import org.springframework.http.ResponseCookie;
 
 import com.es.api.entity.User;
 import com.es.api.request.LoginRequest;
+import com.es.api.request.ResetPasswordRequest;
 import com.es.api.request.UserRequest;
 
 public interface UserService {
@@ -17,5 +18,7 @@ public interface UserService {
 	String login(LoginRequest loginRequest);
 
 	ResponseCookie logOut();
+
+	String resetPassword(ResetPasswordRequest resetPasswordRequest);
 
 }

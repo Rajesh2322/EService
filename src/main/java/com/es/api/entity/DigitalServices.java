@@ -26,14 +26,17 @@ public class DigitalServices {
 	
 	private String serviceCode;
 	private String serviceName;
+	private String desc;
 	private String createdBy;
 	private Date createdDate;
 	
 	
-	  public DigitalServices(Long id, String serviceCode, String serviceName, String createdBy, Date createdDate) {
+	
+	  public DigitalServices(Long id, String serviceCode, String serviceName,String desc, String createdBy, Date createdDate) {
 	        this.Id = id;
 	        this.serviceCode = serviceCode;
 	        this.serviceName = serviceName;
+	        this.desc = desc;
 	        this.createdBy = createdBy;
 	        this.createdDate = createdDate;
 	    }

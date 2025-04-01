@@ -6,6 +6,7 @@ import lombok.Data;
 public class DigitalServicesRequest {
 	
 	private String ServiceName;
+	private String decs;
 	private String createdBy;
 	
 
